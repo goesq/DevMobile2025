@@ -1,97 +1,90 @@
-// biblioteca sempre necessaria para criar os Widgets para o Android
 import 'package:flutter/material.dart';
 
-// funçao principal do codigo do aplicativo
 void main() {
-  runApp(TelaApp()
-  );
+  runApp(MyApp());
 }
-// cria uma classe do tipo Stateless
-class TelaApp extends StatelessWidget {
-  const TelaApp({super.key});
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("App aula 08"),
-          backgroundColor: Colors.red,
+      title: 'Contador App',
+      theme: ThemeData(
+        primarySwatch: MaterialColor(
+          0xFF6A24DB, // Cor base
+          <int, Color>{
+            50: Color(0xFFE0BFFF),  // Cor mais clara
+            100: Color(0xFFB399E6),  // Cor intermediária
+            200: Color(0xFF9966CC),
+            300: Color(0xFF7F4DB3),
+            400: Color(0xFF6633CC),
+            500: Color(0xFF6A24DB),  // Cor base
+            600: Color(0xFF5919B3),
+            700: Color(0xFF480E99),
+            800: Color(0xFF3F007F),
+            900: Color(0xFF330066),
+          },
         ),
-        body: Home(),
       ),
+      home: ContadorScreen(),
     );
   }
 }
 
-class Home extends StatefulWidget {
-  const Home({super.key});
-
+class ContadorScreen extends StatefulWidget {
   @override
-  State<Home> createState() => _HomeState();
+  _ContadorScreenState createState() => _ContadorScreenState();
 }
 
-class _HomeState extends State<Home> {
-  String? _msg ; // cria uma variavel chamada _msg
-   // função para exibir mensagem
-  _exibemsg(){
-    // setState função que gerencia o estado do aplicativo para atualizar
-    // as saidas na tela do aplicativo
-    setState(() {
-      _msg = "Senai";
-      
-    });
-    
+class _ContadorScreenState extends State<ContadorScreen> {
+  int _contador = 0;
 
-  }
-
-  
-   // função para limpar o campo de mensagem
-  _limpar(){
+  void _incrementar() {
     setState(() {
-      _msg = "";
+      _contador++;
     });
   }
 
-  _exibemsg2(){
+  void _decrementar() {
     setState(() {
-      _msg ="Daniel Vieira";
+      _contador--;
     });
-
   }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(alignment: Alignment.center,
-              width: 200,height: 200,color: Colors.red,
-            // ${_msg} acessa o conteudo da variavel _msg
-            child:Text("${_msg}",
-            textAlign: TextAlign.center,
-            style: 
-            TextStyle(
-              fontSize: 30,
-              color:
-               Colors.white),),),
-          ),
-      
-             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-               children: [
-              
-                 ElevatedButton(onPressed: _exibemsg, child: Text("Exibir ")),
-                TextButton(onPressed: _limpar, child: Text("Limpar")),
-                IconButton(onPressed: _exibemsg2, icon: Icon(Icons.mail)),
-               
-               ],
-             ),
-          
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Contador'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Contagem:',
+              style: TextStyle(fontSize: 30),
+            ),
+            Text(
+              '$_contador',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: _decrementar,
+                  child: Text('-'),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: _incrementar,
+                  child: Text('+'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
