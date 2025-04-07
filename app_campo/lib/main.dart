@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Cadastro de Endereço',
+      title: 'Faça seu Cadastro',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
